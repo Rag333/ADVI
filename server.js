@@ -50,6 +50,7 @@ function protect(req, res, next) {
 app.get("/", (req, res) => res.render("index"));
 app.get("/login/niveditha", (req, res) => res.render("login/niveditha"));
 app.get("/login/pallavi", (req, res) => res.render("login/pallavi"));
+app.get("/login/sahana", (req, res) => res.render("login/sahana"));
 
 app.post("/saveToken", (req, res) => {
   res.cookie("token", req.body.token, { httpOnly: true });
@@ -65,7 +66,7 @@ app.get("/logout", (req, res) => {
 
 // --- FIX 2: Dynamic Port for Deployment ---
 // Render gives you a specific port in process.env.PORT. You must use it.
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>
   console.log(`Server running at http://localhost:${PORT}`)
 );
