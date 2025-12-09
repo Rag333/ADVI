@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script type="module">
+      // NOTE: Changed path to /firebase-config.js because app.use(express.static("public"))
+      // serves files at the root URL.
+      import { app, auth } from "/firebase-config.js";
+      import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+      async function login() {
+        let email = "pallavi_cloud@advigroups.com";
+        let password = document.getElementById("password").value;
+
+        console.log("Attempting login..."); // Debugging log
+
+        signInWithEmailAndPassword(auth, email, password)
+          .then(async (user) => {
+            console.log("Login successful, getting token...");
+            const token = await user.user.getIdToken();
+
+            await fetch("/saveToken", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ token }),
+            });
+
+            window.location.href = "/dashboard";
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            document.getElementById("msg").classList.remove("hidden");
+          });
+      }
+
+      // --- THIS IS THE FIX ---
+      // We explicitly attach the function to the window so the HTML button can see it
+      window.login = login;
+    </script>
+  </head>
+
+  <body
+    class="flex justify-center items-center h-screen bg-[#0d1333] text-white"
+  >
+    <div class="bg-white/10 p-8 rounded-xl w-[350px]">
+      <h2 class="text-2xl mb-4 font-bold">Pallavi Cloud Login</h2>
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Enter Password"
+        class="w-full p-3 bg-white/20 rounded mb-4 text-black"
+      />
+      <button
+        onclick="login()"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 p-3 rounded"
+      >
+        Login
+      </button>
+      <p id="msg" class="hidden text-red-400 mt-3">Invalid Password</p>
+    </div>
+  </body>
+</html>

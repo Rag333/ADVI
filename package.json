@@ -1,0 +1,28 @@
+{
+  "name": "advi",
+  "version": "1.0.0",
+  "description": "Authentication page for ADVI employees",
+  "keywords": [
+    "[javascript",
+    "nodejs]"
+  ],
+  "license": "ISC",
+  "author": "MAHIPAL SINGH",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.1",
+    "cookie-parser": "^1.4.7",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "firebase": "^12.6.0",
+    "firebase-admin": "^13.6.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.0.1",
+    "validate": "^5.2.0"
+  }
+}
